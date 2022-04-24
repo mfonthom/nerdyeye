@@ -1,0 +1,2 @@
+write on a new File
+A New string

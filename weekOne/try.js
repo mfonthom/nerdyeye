@@ -5,4 +5,4 @@ const person = {
 const hello = (name)=>{
     console.log(`Hi ${name}`)
 }
-module.exports = {person,hello}
+module.exports = {person,hello} //exporting a module

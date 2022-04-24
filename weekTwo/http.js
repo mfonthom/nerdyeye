@@ -1,6 +1,7 @@
+// HTTP module
 const http = require('http')
 
-// console.log(http)gi
+// console.log(http)
 
 const port = process.env.PORT || 5000
 
@@ -12,12 +13,12 @@ const server = http.createServer( (req,res) =>{
     }else if(req.url === '/style'){
         res.end(`this is a style sheet`)
     }else{
-        res.end(`<h1> Oops!</h1>Page not Found`)
+        res.end(`<h1 Style="color:red; font-size:30px"> Oops!</h1>Page not Found`)
     }
     
     
-})
+});
 
 server.listen(port, ()=>{
     console.log(`server listening on ${port}`)
-})
+});
