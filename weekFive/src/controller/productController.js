@@ -1,9 +1,9 @@
 const Product = require("../models/productSchema");
 
 // get all products => /api/all
-exports.getAllProducts = async (req, res, next)=>{
+exports.getAllProducts = async (req, res)=>{
     // finding all products
-    const products = await Product.find({});
+    const products = await Product.find({}).populate({path: 'userId', select : ["fullName", "email"]});
 
     res.status(200).json({
         success : true,
@@ -14,7 +14,7 @@ exports.getAllProducts = async (req, res, next)=>{
 };
 
 // Getting a single product
-exports.getSingleProduct = async (req, res, next)=>{
+exports.getSingleProduct = async (req, res)=>{
     
     const id = req.params.id;
     const singleProduct = await Product.findOne({_id : id});
@@ -29,8 +29,9 @@ exports.getSingleProduct = async (req, res, next)=>{
 // create new product
 exports.createProduct = async (req, res)=>{
     try{
+        const {id} = req.user
         const {name, price, description} =  req.body
-        const newProduct = await Product.create({name, price, description});
+        const newProduct = await Product.create({name, price, description, userId: id});
         const savedProduct = await newProduct.save();
 
         res.status(201).json({
@@ -48,7 +49,7 @@ exports.createProduct = async (req, res)=>{
 }
 
 // updating product
-exports.updateProduct = async (req, res, next)=>{
+exports.updateProduct = async (req, res )=>{
     const id = req.params.id;
     const payload = req.body;
     const updatedProduct = await Product.findByIdAndUpdate({_id : id}, payload, {new : true});
@@ -61,7 +62,7 @@ exports.updateProduct = async (req, res, next)=>{
 }
 
 // Deleting Product
-exports.deleteProduct = async (req, res, next)=>{
+exports.deleteProduct = async (req, res)=>{
     const id = req.params.id;
     const deletedProduct = await Product.findByIdAndDelete(id);
 

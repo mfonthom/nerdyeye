@@ -4,13 +4,14 @@ const router = express.Router();
 // import the controllers
 const { getAllProducts, getSingleProduct, createProduct,updateProduct,deleteProduct} = require("../controller/productController");
 
+const verifyUser = require('../middlewares/authorize')
 // router.route("/").get(getShop);
 
 // shop route
 router.get("/all", getAllProducts);
 
 // Create Record (CREATE)
-router.post("/add", createProduct);
+router.post("/add", verifyUser, createProduct);
 
 
 router.route("/:id")

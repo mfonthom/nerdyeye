@@ -16,6 +16,10 @@ const productSchema = new mongoose.Schema({
         required : true,
         trim : true,
     },
+    userId : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 },
 {timestamps : true}
 
